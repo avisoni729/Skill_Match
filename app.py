@@ -39,31 +39,29 @@ st.write(tips)
 
 job_desc = st.text_area(':green[COPY AND PASTE YOUR JOB DESCRIPTION HERE]',max_chars=50000)
 if st.button('SUMBIT'):
+    with st.spinner('Processing....')
+        prompt =f'''
+        <Role> You are an expert in analyzing resume and matching the job description
+        <Goal> Match the resume and the job description provided by the applicant
+        <Context> The following content has been provided by the applicant and create a report
+        * Resume : {file_text}
+        * Job Description : {job_desc}
+        <Format> The report should follow these steps - 
+        * Give a breif description of applicant in 3-5 lines
+        * Describe in percentage what are the chances of this resume of getting selected or shortlisted
+        * Need not to be exact percentage, you can give interval of percentage
+        * Give the expected ATS Score along with matching and non matching keywords 
+        * Perform SWAT analysis and explain each parameter  ie Strength, Weekness, Opportunity and Threat
+        * Give what all sections in the current resume that are required to be changed in order to improve the ATS score and selection percentage
+        * Show both current version and improved version of the section in resume
+        * Create the two sample resume which can maximize the ATS score and selection percentage
+        <Instructions> 
+        * Use bullet-points for explanation wherever possible
+        * Create tables for description wherever required.
+        * Strictly do not add any new skill in sample resume.
+        * The format of sample resumes should be build in such a way that they can be copied and pasted directly in word.
+        '''
 
 
-
-    prompt =f'''
-    <Role> You are an expert in analyzing resume and matching the job description
-    <Goal> Match the resume and the job description provided by the applicant
-    <Context> The following content has been provided by the applicant and create a report
-    * Resume : {file_text}
-    * Job Description : {job_desc}
-    <Format> The report should follow these steps - 
-    * Give a breif description of applicant in 3-5 lines
-    * Describe in percentage what are the chances of this resume of getting selected or shortlisted
-    * Need not to be exact percentage, you can give interval of percentage
-    * Give the expected ATS Score along with matching and non matching keywords 
-    * Perform SWAT analysis and explain each parameter  ie Strength, Weekness, Opportunity and Threat
-    * Give what all sections in the current resume that are required to be changed in order to improve the ATS score and selection percentage
-    * Show both current version and improved version of the section in resume
-    * Create the two sample resume which can maximize the ATS score and selection percentage
-    <Instructions> 
-    * Use bullet-points for explanation wherever possible
-    * Create tables for description wherever required.
-    * Strictly do not add any new skill in sample resume.
-    * The format of sample resumes should be build in such a way that they can be copied and pasted directly in word.
-    '''
-
-
-    response = model.invoke(prompt)
-    st.write(response.content)
+        response = model.invoke(prompt)
+        st.write(response.content)
