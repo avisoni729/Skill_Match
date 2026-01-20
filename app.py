@@ -6,7 +6,7 @@ import os
 
 # first lets configure the model
 
-gemini_api_key = os.getenv('Gemini_Api_Key')
+gemini_api_key = os.getenv('Gemini_API_Key')
 model = ChatGoogleGenerativeAI(
     model = 'gemini-2.5-flash-lite',
     api_key = gemini_api_key,
